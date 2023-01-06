@@ -55,5 +55,22 @@ namespace EmployeeMgmt.Services
                 throw;
 			}
 		}
-    }
+		public bool Delete(int Id)
+		{
+			try
+			{
+				var employee = _context.Employees.Find(Id);
+				if (employee != null)
+					_context.Employees.Remove(employee);
+
+				_context.SaveChanges();
+				return true;
+			}
+			catch (Exception ex)
+			{
+
+				throw;
+			}
+		}
+	}
 }
