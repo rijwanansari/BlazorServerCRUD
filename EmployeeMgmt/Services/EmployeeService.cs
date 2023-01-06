@@ -3,7 +3,7 @@ using EmployeeMgmt.Domain;
 
 namespace EmployeeMgmt.Services
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
 		private readonly ApplicationDBContext _context;
         private readonly ILogger<EmployeeService> logger;

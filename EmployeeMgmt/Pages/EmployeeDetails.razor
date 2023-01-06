@@ -1,0 +1,79 @@
+﻿@page "/employee"
+@page "/emp"
+@page "/employeedetail"
+@using EmployeeMgmt.Services;
+@using EmployeeMgmt.Domain
+@inject IEmployeeService employeeService;
+<h4>Employee</h4>
+@if (warninngMessage.Length > 0)
+{
+    <div class="alert alert-warning">
+        <strong>Warning!</strong> @warninngMessage
+    </div>
+
+}
+<div class="row">
+    <div class="col-sm-4">
+        <table class="table table-sm table-striped align-middle table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Employee</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var oemployee in employees)
+                {
+                    <tr>
+                        <td>@oemployee.Id</td>
+                        <td> @oemployee.Name</td>
+                        <td>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-8">
+        <EditForm Model="@employee" OnValidSubmit="SaveEmployee">
+            <DataAnnotationsValidator />
+            <div class="col-md-4">
+                <label for="Name" class="form-label">Name</label>
+                <InputText class="form-control" @bind-Value="employee.Name" />
+                <ValidationMessage For="@(() => employee.Name)" />
+            </div>
+            <div class="col-md-4">
+                <label for="Salary" class="form-label">Salary</label>
+                <InputNumber class="form-control" @bind-Value="employee.Salary" />
+                <ValidationMessage For="@(() => employee.Salary)" />
+            </div>
+             <div class="col-md-4">
+                <label for="Gender" class="form-label">Salary</label>
+                
+            </div>
+              <div class="col-md-4">
+                <label for="Salary" class="form-label">Entry by</label>
+              <InputText class="form-control" @bind-Value="employee.EntryBy" />
+                <ValidationMessage For="@(() => employee.EntryBy)" />
+            </div>
+
+        </EditForm>
+    </div>
+</div>
+
+
+@code {
+    private string warninngMessage = "";
+    protected List<Employee> employees = new();
+    protected Employee employee = new();
+    protected override void OnInitialized()
+    {
+        employees = employeeService.GetAll();
+        base.OnInitialized();
+    }
+    protected void SaveEmployee()
+    {
+
+    }
+}
