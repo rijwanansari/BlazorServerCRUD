@@ -6,9 +6,11 @@ namespace EmployeeMgmt.Services
     public class EmployeeService
     {
 		private readonly ApplicationDBContext _context;
-		public EmployeeService(ApplicationDBContext context)
+        private readonly ILogger<EmployeeService> logger;
+        public EmployeeService(ApplicationDBContext context, ILogger<EmployeeService> logger)
 		{
 			_context= context;
+			this.logger= logger;	
 		}
         public Employee InsertUpdate(Employee employee)
         {
@@ -36,8 +38,8 @@ namespace EmployeeMgmt.Services
             }
 			catch (Exception ex)
 			{
-
-				throw;
+                logger?.LogError(ex.ToString());
+                throw;
 			}
         }
 		public List<Employee> GetAll()
@@ -49,8 +51,8 @@ namespace EmployeeMgmt.Services
 			}
 			catch ( Exception ex)
 			{
-
-				throw;
+                logger?.LogError(ex.ToString());
+                throw;
 			}
 		}
     }
